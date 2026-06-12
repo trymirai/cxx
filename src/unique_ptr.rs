@@ -1,3 +1,5 @@
+#![allow(clippy::std_instead_of_core)]
+
 use crate::cxx_vector::{CxxVector, VectorElement};
 use crate::extern_type::ExternType;
 use crate::fmt::display;

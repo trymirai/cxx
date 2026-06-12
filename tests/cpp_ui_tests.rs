@@ -34,7 +34,7 @@ fn test_unique_ptr_of_incomplete_foward_declared_pointee() {
     );
     assert!(compiled
         .expect_single_error()
-        .contains("definition of `::ForwardDeclaredType` is required"))
+        .contains("definition of `::ForwardDeclaredType` is required"));
 }
 
 #[test]
@@ -256,7 +256,7 @@ fn test_safe_shared_extern_with_errorneously_nontrivial_struct() {
 /// However, this is not implemented yet: we currently unconditionally reject
 /// any non-trivial structs.
 #[test]
-#[ignore]
+#[ignore = "non-trivial shared structs are currently rejected unconditionally; not implemented yet"]
 fn test_safe_shared_extern_with_nontrivial_struct() {
     let compiled = compile_test(
         quote! {
