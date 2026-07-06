@@ -609,9 +609,7 @@ fn expand_associated_functions(self_type: &Ident, types: &Types) -> TokenStream 
         }
         let mut impl_lifetimes = Vec::new();
         let mut self_type_lifetimes = Vec::new();
-        let self_lt_token;
-        let self_gt_token;
-        match &efn.kind {
+        let (self_lt_token, self_gt_token) = match &efn.kind {
             FnKind::Method(receiver) if receiver.ty.generics.lt_token.is_some() => {
                 for lifetime in &receiver.ty.generics.lifetimes {
                     if lifetime.ident != "_"
@@ -624,15 +622,13 @@ fn expand_associated_functions(self_type: &Ident, types: &Types) -> TokenStream 
                     }
                     self_type_lifetimes.push(lifetime);
                 }
-                self_lt_token = receiver.ty.generics.lt_token;
-                self_gt_token = receiver.ty.generics.gt_token;
+                (receiver.ty.generics.lt_token, receiver.ty.generics.gt_token)
             }
             _ => {
                 self_type_lifetimes.resize(resolve.generics.lifetimes.len(), &elided_lifetime);
-                self_lt_token = resolve.generics.lt_token;
-                self_gt_token = resolve.generics.gt_token;
+                (resolve.generics.lt_token, resolve.generics.gt_token)
             }
-        }
+        };
         if efn.undeclared_lifetimes().is_empty()
             && self_type_lifetimes.len() == resolve.generics.lifetimes.len()
         {
