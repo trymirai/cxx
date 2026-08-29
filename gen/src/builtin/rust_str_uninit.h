@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../include/cxx.h"
+#include "../../../cxx-cc/include/cxx.h"
 
 namespace rust {
 inline namespace cxxbridge1 {

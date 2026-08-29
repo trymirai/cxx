@@ -88,7 +88,7 @@ fn test_safe_shared_extern_with_missing_field_cpp() {
         "},
     );
     // The error messages vary depending on the compiler
-    assert!(!compiled.error_lines().is_empty());
+    assert_ne!(compiled.error_lines(), [] as [String; 0]);
 }
 
 #[test]

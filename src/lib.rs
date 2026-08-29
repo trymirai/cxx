@@ -18,7 +18,7 @@
 //!
 //! <br>
 //!
-//! *Compiler support: requires rustc 1.85+ and c++11 or newer*<br>
+//! *Compiler support: requires rustc 1.88+ and c++11 or newer*<br>
 //! *[Release notes](https://github.com/dtolnay/cxx/releases)*
 //!
 //! <br>
@@ -344,8 +344,8 @@
 //! <tr><td>Result&lt;T&gt;</td><td>throw/catch</td><td><sup><i>allowed as return type only</i></sup></td></tr>
 //! </table>
 //!
-//! The C++ API of the `rust` namespace is defined by the *include/cxx.h* file
-//! in <https://github.com/dtolnay/cxx>. You will need to include this header in
+//! The C++ API of the `rust` namespace is defined by the *cxx-cc/include/cxx.h*
+//! file in <https://github.com/dtolnay/cxx>. You will need to include this header in
 //! your C++ code when working with those types.
 //!
 //! The following types are intended to be supported "soon" but are just not

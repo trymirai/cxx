@@ -8,11 +8,11 @@ fn main() {
     let out_dir = PathBuf::from(env::var_os("OUT_DIR").expect("OUT_DIR shall be set by cargo"));
     cxx_cc::build_cxxcc_if_cc_stage(&PathBuf::from(&out_dir)).expect("failed to compile cxx.cc");
 
-    println!("cargo:rerun-if-changed=include/cxx.h");
+    println!("cargo:rerun-if-changed=cxx-cc/include/cxx.h");
     println!("cargo:rustc-cfg=built_with_cargo");
 
     if let Some(manifest_dir) = &manifest_dir_opt {
-        let cxx_h = manifest_dir.join("include/cxx.h");
+        let cxx_h = manifest_dir.join("cxx-cc/include/cxx.h");
         println!("cargo:HEADER={}", cxx_h.to_string_lossy());
     }
 
@@ -23,8 +23,8 @@ fn main() {
     println!("cargo:rustc-check-cfg=cfg(skip_ui_tests)");
 
     if let Some(rustc) = rustc_version() {
-        if rustc.minor < 85 {
-            println!("cargo:warning=The cxx crate requires a rustc version 1.85.0 or newer.");
+        if rustc.minor < 88 {
+            println!("cargo:warning=The cxx crate requires a rustc version 1.88.0 or newer.");
             println!(
                 "cargo:warning=You appear to be building with: {}",
                 rustc.version,

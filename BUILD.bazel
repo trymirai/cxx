@@ -44,17 +44,17 @@ rust_binary(
 
 cc_library(
     name = "core",
-    hdrs = ["include/cxx.h"],
+    hdrs = ["cxx-cc/include/cxx.h"],
     include_prefix = "rust",
-    strip_include_prefix = "include",
+    strip_include_prefix = "cxx-cc/include",
     visibility = ["//visibility:public"],
 )
 
 cc_library(
     name = "core-lib",
     srcs = ["cxx-cc/src/cxx.cc"],
-    hdrs = ["include/cxx.h"],
-    includes = ["include/"],
+    hdrs = ["cxx-cc/include/cxx.h"],
+    includes = ["cxx-cc/include/"],
     linkstatic = True,
 )
 

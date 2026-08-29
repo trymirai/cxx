@@ -12,7 +12,7 @@ keywords = ["ffi", "c++"]
 license = "MIT OR Apache-2.0"
 links = "cxxbridge1"
 repository = "https://github.com/dtolnay/cxx"
-rust-version = "1.85"
+rust-version = "1.88"
 
 [features]
 default = ["std", "cxx-cc/default"] # c++11
@@ -69,12 +69,12 @@ additive_build_file_content = """
 load("@rules_cc//cc:defs.bzl", "cc_library")
 cc_library(
     name = "cxx_cc",
-    srcs = ["src/cxx.cc"],
-    hdrs = ["include/cxx.h"],
+    srcs = ["cxx-cc/src/cxx.cc"],
+    hdrs = ["cxx-cc/include/cxx.h"],
     include_prefix = "rust",
-    includes = ["include"],
+    includes = ["cxx-cc/include"],
     linkstatic = True,
-    strip_include_prefix = "include",
+    strip_include_prefix = "cxx-cc/include",
     visibility = ["//visibility:public"],
 )
 """

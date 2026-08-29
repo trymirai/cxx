@@ -34,6 +34,7 @@ pub mod ffi {
         type Array;
     }
 
+    #[allow(clippy::clone_on_copy)]
     #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
     #[serde(deny_unknown_fields)]
     struct Shared {
@@ -77,6 +78,7 @@ pub mod ffi {
     }
 
     #[namespace = "A::B"]
+    #[allow(clippy::clone_on_copy)]
     #[derive(Clone)]
     struct ABShared {
         z: usize,
@@ -701,7 +703,7 @@ fn r_take_ref_vector(v: &CxxVector<u8>) {
 }
 
 fn r_take_ref_empty_vector(v: &CxxVector<u64>) {
-    assert!(v.as_slice().is_empty());
+    assert_eq!(v.as_slice(), []);
     assert!(v.is_empty());
 }
 
