@@ -27,8 +27,8 @@ returns of extern functions.
 
 <br>
 
-The C++ API of the `rust` namespace is defined by the *include/cxx.h* file in
-the CXX GitHub repo. You will need to include this header in your C++ code when
+The C++ API of the `rust` namespace is defined by the *cxx-cc/include/cxx.h*
+file in the CXX GitHub repo. You will need to include this header in your C++ code when
 working with those types. **When using Cargo and the cxx-build crate, the header
 is made available to you at `#include "rust/cxx.h"`.**
 

@@ -3,7 +3,7 @@
 use std::io::Result;
 use std::path::Path;
 
-const CXX_H: &[u8] = include_bytes!("../../include/cxx.h");
+const CXX_H: &[u8] = include_bytes!("../include/cxx.h");
 const CXX_CC: &[u8] = include_bytes!("cxx.cc");
 
 fn build_cxxcc(dir: &Path) -> Result<()> {

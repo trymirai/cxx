@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rust: [nightly, beta, stable, 1.85.0]
+        rust: [nightly, beta, stable, 1.88.0]
         os: [ubuntu]
         cc: [g++]
         flags: ['']
@@ -190,13 +190,13 @@ jobs:
         with:
           targets: wasm32-unknown-emscripten
           components: rust-src
-      - name: Disable initramfs update
-        run: sudo sed -i 's/^update_initramfs=yes$/update_initramfs=no/' /etc/initramfs-tools/update-initramfs.conf
-      - name: Disable man-db update
-        run: sudo rm -f /var/lib/man-db/auto-update
-      - name: Install emscripten
-        run: sudo apt-get install emscripten
-      - run: cargo build --target=wasm32-unknown-emscripten --manifest-path=demo/Cargo.toml --release -Zbuild-std
+      - uses: emscripten-core/setup-emsdk@v16
+      - run: cargo build
+          --manifest-path=demo/Cargo.toml
+          --target=wasm32-unknown-emscripten
+          --release
+          -Zbuild-std
+          --config='target.wasm32-unknown-emscripten.linker="em++"'
         env:
           RUSTFLAGS: -Clink-arg=--emrun ${{env.RUSTFLAGS}}
       - name: Create demo.html for demo.js
@@ -325,7 +325,7 @@ jobs:
       - name: Install clang-tidy
         run: sudo apt-get update && sudo apt-get install clang-tidy-20
       - name: Run clang-tidy
-        run: clang-tidy-20 cxx-cc/src/cxx.cc --warnings-as-errors=* -- -Iinclude
+        run: clang-tidy-20 cxx-cc/src/cxx.cc --warnings-as-errors=* -- -Icxx-cc/include
 
   eslint:
     name: ESLint
@@ -348,4 +348,6 @@ jobs:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - uses: dtolnay/install@cargo-outdated
-      - run: cargo outdated --workspace --exit-code 1
+        # Ignore syn and prettyplease until rebasing onto an upstream release
+        # that includes the syn 3 migration (cxx 1.0.195+).
+      - run: cargo outdated --workspace --exit-code 1 --ignore syn,prettyplease

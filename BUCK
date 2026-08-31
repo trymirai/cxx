@@ -53,9 +53,9 @@ rust_binary(
 cxx_library(
     name = "core",
     srcs = ["cxx-cc/src/cxx.cc"],
-    include_directories = ["include/"],
+    include_directories = ["cxx-cc/include/"],
     exported_headers = {
-        "cxx.h": "include/cxx.h",
+        "cxx.h": "cxx-cc/include/cxx.h",
     },
     header_namespace = "rust",
     preferred_linkage = "static",
